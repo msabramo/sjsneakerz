@@ -2,37 +2,6 @@
 credentials.json
 token.json
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual Environment
-venv/
-env/
-ENV/
-.venv/
-
-# uv
-uv.lock
-
 # IDEs
 .vscode/
 .idea/
@@ -43,9 +12,3 @@ uv.lock
 # OS
 .DS_Store
 Thumbs.db
-
-# Next.js
-.next/
-out/
-node_modules/
-
