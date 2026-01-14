@@ -1,0 +1,10 @@
+To set up your API connection:
+
+1. Create a file named .env.local in this directory (my-sales-app/)
+
+2. Add this line to .env.local:
+   NEXT_PUBLIC_API_BASE_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
+
+3. Replace YOUR_DEPLOYMENT_ID with your actual Apps Script deployment ID
+
+4. Save the file and restart your dev server

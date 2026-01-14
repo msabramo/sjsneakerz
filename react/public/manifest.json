@@ -1,0 +1,23 @@
+{
+  "name": "SJSneakerz",
+  "short_name": "SJSneakerz",
+  "description": "Sneaker sales management system",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "permissions": [
+    "camera"
+  ],
+  "categories": ["business", "productivity"],
+  "scope": "/"
+}
+
