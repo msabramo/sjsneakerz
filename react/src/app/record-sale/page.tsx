@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import SalesAPI, { Item, SaleData, BulkSaleData } from '@/lib/SalesAPI';
@@ -25,7 +25,7 @@ function getLocalDateString(): string {
   return `${year}-${month}-${day}`;
 }
 
-export default function RecordSale() {
+function RecordSaleContent() {
   const { user } = useAuth();
   const searchParams = useSearchParams();
   const [items, setItems] = useState<Item[]>([]);
@@ -1101,5 +1101,13 @@ export default function RecordSale() {
         />
       </div>
     </div>
+  );
+}
+
+export default function RecordSale() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RecordSaleContent />
+    </Suspense>
   );
 }

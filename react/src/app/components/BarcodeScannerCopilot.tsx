@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   BrowserMultiFormatReader,
   BarcodeFormat,
-  Result,
 } from "@zxing/browser";
 
 interface BarcodeScannerProps {
@@ -28,9 +27,9 @@ export default function BarcodeScanner({
     setIsScanning(true);
 
     // 1. Create ZXing reader configured for EAN_13 (best for UPC-A)
-    readerRef.current = new BrowserMultiFormatReader({
-      possibleFormats: [BarcodeFormat.EAN_13]
-    });
+    const hints = new Map();
+    hints.set(2, [BarcodeFormat.EAN_13]); // POSSIBLE_FORMATS = 2
+    readerRef.current = new BrowserMultiFormatReader(hints);
 
     // 2. Request high‑resolution camera stream
     const constraints: MediaStreamConstraints = {
@@ -66,7 +65,7 @@ export default function BarcodeScanner({
     if (!isScanning || !videoRef.current || !readerRef.current) return;
 
     try {
-      const result: Result | undefined =
+      const result =
         await readerRef.current.decodeOnceFromVideoElement(videoRef.current);
 
       if (result) {
@@ -89,9 +88,10 @@ export default function BarcodeScanner({
   const stopScanning = () => {
     setIsScanning(false);
 
-    // 1. Reset ZXing
+    // 1. Clear ZXing reader reference
+    // Note: BrowserMultiFormatReader doesn't have a reset() method
+    // The reader will be stopped when video tracks are stopped
     if (readerRef.current) {
-      readerRef.current.reset();
       readerRef.current = null;
     }
 

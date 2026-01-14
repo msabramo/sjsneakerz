@@ -3,8 +3,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
-// Force dynamic rendering (required for API routes)
-export const dynamic = 'force-dynamic';
+// Mark as static to exclude from static export (API routes don't work in static exports)
+export const dynamic = 'force-static';
 
 const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
 

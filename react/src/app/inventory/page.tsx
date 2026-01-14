@@ -119,7 +119,7 @@ export default function Inventory() {
     }));
   };
 
-  const handleBrandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleBrandChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({
       ...prev,
       brand: e.target.value,
@@ -128,7 +128,7 @@ export default function Inventory() {
     }));
   };
 
-  const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({
       ...prev,
       size: e.target.value,

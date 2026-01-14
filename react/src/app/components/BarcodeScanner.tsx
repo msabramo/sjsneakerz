@@ -256,8 +256,14 @@ export default function BarcodeScanner({ isOpen, onClose, onScan }: BarcodeScann
         if (!isProcessingScanRef.current && videoRef.current && readerRef.current) {
           try {
             // Force a decode attempt on the current video frame
-            readerRef.current.decodeFromVideoElement(videoRef.current)
-              .then(result => {
+            readerRef.current.decodeFromVideoElement(
+              videoRef.current,
+              (result, error) => {
+                if (error) {
+                  // Silently ignore decode errors during manual attempts
+                  return;
+                }
+                
                 if (result) {
                   const barcode = result.getText();
                   
@@ -311,10 +317,8 @@ export default function BarcodeScanner({ isOpen, onClose, onScan }: BarcodeScann
                     scanTimeoutRef.current = null;
                   }, 500);
                 }
-              })
-              .catch(() => {
-                // Silent fail - this is expected when no barcode in view
-              });
+              }
+            );
           } catch (err) {
             // Silent fail
           }
@@ -341,8 +345,9 @@ export default function BarcodeScanner({ isOpen, onClose, onScan }: BarcodeScann
       console.log('🔄 Restarting scanner (keeping camera active)...');
       
       // Stop the current reader only
+      // Note: BrowserMultiFormatReader doesn't have a reset() method
+      // Just set to null - the reader will be stopped when video tracks are stopped
       if (readerRef.current) {
-        readerRef.current.reset();
         readerRef.current = null;
       }
 
@@ -478,16 +483,13 @@ export default function BarcodeScanner({ isOpen, onClose, onScan }: BarcodeScann
       activeScanTimeoutRef.current = null;
     }
     
-    // Step 2: Stop ZXing reader FIRST (it might be holding references)
+    // Step 2: Clear ZXing reader reference
+    // Note: BrowserMultiFormatReader doesn't have a reset() method
+    // The reader will be stopped when video tracks are stopped
     if (readerRef.current) {
-      try {
-        console.log('  🔍 Stopping ZXing reader...');
-        readerRef.current.reset();
-        console.log('  ✓ ZXing reader reset');
-      } catch (err) {
-        console.warn('  ⚠️ Error resetting scanner:', err);
-      }
+      console.log('  🔍 Clearing ZXing reader reference...');
       readerRef.current = null;
+      console.log('  ✓ ZXing reader cleared');
     }
     
     // Step 3: Stop ALL video tracks (THIS IS CRITICAL)

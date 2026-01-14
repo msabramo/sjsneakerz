@@ -1,3 +1,6 @@
+// Mark as static to exclude from static export (API routes don't work in static exports)
+export const dynamic = 'force-static';
+
 export async function GET() {
   return Response.json({ 
     status: 'ok',
