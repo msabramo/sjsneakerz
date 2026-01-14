@@ -1,0 +1,16 @@
+# This file is kept for backwards compatibility with pip
+# uv will use the inline script dependencies from create_resale_sheet.py
+
+[project]
+name = "clothing-resale-sheet"
+version = "1.0.0"
+description = "Google Sheets setup for clothing resale business tracking"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "google-auth>=2.27.0",
+    "google-auth-oauthlib>=1.2.0",
+    "google-auth-httplib2>=0.2.0",
+    "google-api-python-client>=2.116.0",
+]
+

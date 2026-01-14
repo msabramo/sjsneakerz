@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, minimum-scale=1.0">
+  <style>
+    /* ULTRA AGGRESSIVE: Override Google's injected styles and prevent any scaling */
+    * {
+      box-sizing: border-box !important;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      zoom: 1 !important;
+      -webkit-transform: scale(1) !important;
+      transform: scale(1) !important;
+      -webkit-text-size-adjust: none !important;
+      text-size-adjust: none !important;
+    }
+    
+    /* Force root font size */
+    :root {
+      font-size: 32px !important;
+      zoom: 1 !important;
+      -webkit-transform: scale(1) !important;
+      transform: scale(1) !important;
+    }
+    
+    html {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-width: 100vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      -webkit-text-size-adjust: none !important;
+      text-size-adjust: none !important;
+      zoom: 1 !important;
+      -webkit-transform: scale(1) !important;
+      transform: scale(1) !important;
+      transform-origin: 0 0 !important;
+      font-size: 32px !important;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-width: 100vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: white !important;
+      font-size: 32px !important;
+      overflow-x: hidden !important;
+      -webkit-font-smoothing: antialiased;
+      zoom: 1 !important;
+      -webkit-transform: scale(1) !important;
+      transform: scale(1) !important;
+      transform-origin: 0 0 !important;
+      -webkit-text-size-adjust: none !important;
+      text-size-adjust: none !important;
+    }
+    
+    /* Desktop only - centered box (tablets and larger) */
+    @media (min-width: 768px) {
+      html, body {
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0 !important;
+      }
+      
+      body {
+        max-width: 600px !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
+        font-size: 17px !important;
+        background: #f5f5f5 !important;
+      }
+    }
+    
+    .container {
+      background: white !important;
+      padding: 24px !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      width: 100% !important;
+      max-width: none !important;
+      font-size: 32px !important;
+      zoom: 1 !important;
+      -webkit-transform: scale(1) !important;
+      transform: scale(1) !important;
+      transform-origin: 0 0 !important;
+    }
+    
+    /* Force font sizes on ALL children of container */
+    .container * {
+      zoom: 1 !important;
+      -webkit-transform: scale(1) !important;
+      transform: scale(1) !important;
+    }
+    
+    /* Desktop only - card style */
+    @media (min-width: 768px) {
+      .container {
+        border-radius: 16px !important;
+        padding: 24px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        margin-bottom: 16px !important;
+      }
+    }
+    
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 56px;
+      color: #1a1a1a;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    
+    h2 {
+      font-size: 42px;
+      color: #1a1a1a;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .subtitle {
+      color: #666;
+      font-size: 32px;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+    
+    /* Desktop larger text */
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 32px;
+        margin-bottom: 12px;
+      }
+      
+      h2 {
+        font-size: 22px;
+        font-weight: 700;
+      }
+      
+      .subtitle {
+        font-size: 17px;
+        margin-bottom: 24px;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 32px;
+    }
+    
+    @media (min-width: 768px) {
+      .form-group {
+        margin-bottom: 34px;
+      }
+    }
+    
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #1a1a1a;
+      font-size: 32px;
+    }
+    
+    .required {
+      color: #ff3b30;
+    }
+    
+    select, input[type="text"], input[type="number"], input[type="date"], textarea {
+      width: 100%;
+      padding: 24px;
+      border: 2px solid #d1d1d6;
+      border-radius: 16px;
+      font-size: 32px; /* GIANT fonts */
+      font-family: inherit;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
+      min-height: 80px; /* iOS comfortable touch target */
+      background: white;
+    }
+    
+    /* Custom select arrow for mobile */
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg width='18' height='12' viewBox='0 0 18 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L9 9.5L17 1.5' stroke='%23666' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 20px center;
+      padding-right: 55px;
+    }
+    
+    /* Desktop larger inputs */
+    @media (min-width: 768px) {
+      label {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      
+      select, input[type="text"], input[type="number"], input[type="date"], textarea {
+        padding: 16px;
+        font-size: 17px;
+        border-radius: 12px;
+        min-height: 52px;
+      }
+      
+      select {
+        background-position: right 16px center;
+      }
+    }
+    
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    @media (min-width: 768px) {
+      textarea {
+        min-height: 140px;
+      }
+    }
+    
+    select:focus, input:focus, textarea:focus {
+      outline: none;
+      border-color: #007aff;
+      box-shadow: 0 0 0 3px rgba(0,122,255,0.1);
+    }
+    
+    select:disabled, input:disabled {
+      background: #f2f2f7;
+      color: #8e8e93;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    
+    input[readonly] {
+      background: #f2f2f7;
+      color: #666;
+      cursor: default;
+    }
+    
+    .filter-section {
+      background: #f9f9f9;
+      padding: 22px;
+      margin: -24px -24px 28px -24px;
+      border-bottom: 1px solid #e5e5ea;
+    }
+    
+    .filter-section h2 {
+      margin: 0 0 20px 0;
+      font-size: 28px;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    
+    @media (min-width: 768px) {
+      .filter-section {
+        border-radius: 12px;
+        margin: 0 0 20px 0;
+        padding: 20px;
+        background: #f9f9f9;
+        border: none;
+      }
+      
+      .filter-section h2 {
+        font-size: 14px;
+        margin-bottom: 18px;
+      }
+    }
+    
+    .item-preview {
+      background: #e8f5e9;
+      border-left: 5px solid #34a853;
+      padding: 24px;
+      margin-top: 16px;
+      font-size: 30px;
+      display: none;
+      line-height: 1.5;
+      border-radius: 0 14px 14px 0;
+    }
+    
+    .item-preview.show {
+      display: block;
+    }
+    
+    .item-preview strong {
+      color: #1e8e3e;
+      font-weight: 600;
+    }
+    
+    @media (min-width: 768px) {
+      .item-preview {
+        padding: 16px;
+        font-size: 15px;
+      }
+    }
+    
+    .quantity-add-section {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    
+    .quantity-add-section .form-group {
+      flex: 1;
+      margin-bottom: 0;
+      min-width: 0;
+    }
+    
+    .quantity-add-section button {
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-width: 180px;
+      padding: 24px 24px;
+    }
+    
+    @media (min-width: 768px) {
+      .quantity-add-section button {
+        min-width: 150px;
+      }
+    }
+    
+    .cart-container {
+      background: white !important;
+      display: none;
+      padding: 24px !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      border-top: 1px solid #e5e5ea;
+      border-bottom: 1px solid #e5e5ea;
+      width: 100% !important;
+      max-width: none !important;
+      font-size: 32px !important;
+      zoom: 1 !important;
+      -webkit-transform: scale(1) !important;
+      transform: scale(1) !important;
+      transform-origin: 0 0 !important;
+    }
+    
+    /* Force font sizes on ALL children of cart-container */
+    .cart-container * {
+      zoom: 1 !important;
+      -webkit-transform: scale(1) !important;
+      transform: scale(1) !important;
+    }
+    
+    .cart-container.show {
+      display: block;
+    }
+    
+    @media (min-width: 768px) {
+      .cart-container {
+        border-radius: 16px !important;
+        padding: 20px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        margin-bottom: 16px !important;
+        border-top: none;
+        border-bottom: none;
+      }
+    }
+    
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e5ea;
+    }
+    
+    .cart-header h2 {
+      margin: 0;
+      font-size: 44px;
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+    
+    .cart-count {
+      background: #007aff;
+      color: white;
+      padding: 14px 26px;
+      border-radius: 28px;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+    
+    @media (min-width: 768px) {
+      .cart-header h2 {
+        font-size: 24px;
+      }
+      
+      .cart-count {
+        padding: 7px 16px;
+        font-size: 16px;
+      }
+    }
+    
+    .cart-items {
+      margin-bottom: 14px;
+    }
+    
+    .cart-item {
+      background: #f9f9f9;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    
+    .cart-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .cart-item-title {
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+      font-size: 32px;
+      line-height: 1.3;
+    }
+    
+    .cart-item-details {
+      font-size: 28px;
+      color: #666;
+      line-height: 1.4;
+    }
+    
+    .cart-item-qty {
+      background: #e8f0fe;
+      color: #1967d2;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    
+    .cart-item-remove {
+      background: #ff3b30;
+      color: white;
+      border: none;
+      padding: 20px 26px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 28px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      min-height: 74px;
+      min-width: 110px;
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+    
+    @media (min-width: 768px) {
+      .cart-item {
+        padding: 16px;
+        gap: 14px;
+      }
+      
+      .cart-item-title {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      
+      .cart-item-details {
+        font-size: 14px;
+      }
+      
+      .cart-item-qty {
+        padding: 8px 14px;
+        font-size: 16px;
+      }
+      
+      .cart-item-remove {
+        padding: 12px 16px;
+        font-size: 14px;
+        min-height: 48px;
+        min-width: 80px;
+      }
+    }
+    
+    .cart-item-remove:active {
+      transform: scale(0.98);
+      background: #ff2d24;
+    }
+    
+    .cart-empty {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      font-size: 15px;
+    }
+    
+    .btn-container {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    
+    @media (min-width: 768px) {
+      .btn-container {
+        gap: 12px;
+        margin-top: 24px;
+      }
+    }
+    
+    button {
+      padding: 24px 28px;
+      border: none;
+      border-radius: 16px;
+      font-size: 32px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-height: 80px; /* iOS comfortable touch target */
+      touch-action: manipulation;
+      width: 100%;
+      letter-spacing: -0.2px;
+    }
+    
+    /* Desktop button sizing */
+    @media (min-width: 768px) {
+      button {
+        padding: 16px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        width: auto;
+        min-height: 52px;
+      }
+    }
+    
+    button:active {
+      transform: scale(0.98);
+    }
+    
+    .btn-primary {
+      background: #007aff;
+      color: white;
+      flex: 1;
+      box-shadow: 0 2px 8px rgba(0,122,255,0.3);
+    }
+    
+    .btn-primary:active:not(:disabled) {
+      background: #0051d5;
+    }
+    
+    .btn-primary:disabled {
+      background: #d1d1d6;
+      color: #8e8e93;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: 0.6;
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: #007aff;
+      border: 1.5px solid #007aff;
+      flex: 1;
+    }
+    
+    .btn-secondary:active {
+      background: #f2f2f7;
+    }
+    
+    .btn-add {
+      background: #34a853;
+      color: white;
+      box-shadow: 0 2px 8px rgba(52,168,83,0.3);
+    }
+    
+    .btn-add:active:not(:disabled) {
+      background: #2d9248;
+    }
+    
+    .btn-add:disabled {
+      background: #d1d1d6;
+      color: #8e8e93;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: 0.6;
+    }
+    
+    .success-message, .error-message {
+      padding: 28px 30px;
+      border-radius: 0;
+      margin: 0 !important;
+      display: none;
+      font-size: 32px;
+      line-height: 1.5;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      text-align: center;
+      width: 100% !important;
+      max-width: none !important;
+    }
+    
+    .success-message {
+      background: #34a853;
+      color: white;
+    }
+    
+    .error-message {
+      background: #ff3b30;
+      color: white;
+    }
+    
+    .success-message.show, .error-message.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .success-message, .error-message {
+        border-radius: 12px;
+        margin-bottom: 16px !important;
+        position: relative;
+        font-size: 16px;
+        padding: 18px 20px;
+      }
+    }
+    
+    .helper-text {
+      font-size: 28px;
+      color: #666;
+      margin-top: 12px;
+      line-height: 1.4;
+    }
+    
+    .cart-summary {
+      background: #e8f0fe;
+      padding: 26px;
+      border-radius: 16px;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #1967d2;
+      font-size: 32px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    
+    @media (min-width: 768px) {
+      .helper-text {
+        font-size: 14px;
+        margin-top: 8px;
+      }
+      
+      .cart-summary {
+        font-size: 16px;
+        padding: 16px 18px;
+        font-weight: 600;
+      }
+    }
+    
+    /* Smooth scrolling for iOS */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Loading state */
+    button.loading {
+      position: relative;
+      color: transparent;
+    }
+    
+    button.loading::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid transparent;
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      color: inherit;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Version banner */
+    .version-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      text-align: center;
+      font-weight: 700;
+      margin: -24px -24px 24px -24px;
+      letter-spacing: 0.5px;
+    }
+    
+    @media (min-width: 768px) {
+      .version-banner {
+        border-radius: 12px 12px 0 0;
+        margin: -24px -24px 24px -24px;
+        padding: 16px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="success-message" id="successMessage"></div>
+  <div class="error-message" id="errorMessage"></div>
+
+  <div class="container">
+    <div class="version-banner">
+      📱 V15.0 - FORCE CONTAINER FONTS 📱
+    </div>
+    <h1>💰 Record Sale</h1>
+    <p class="subtitle">Add items to cart, then complete sale details</p>
+    
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <h2>🔍 Select Item Details</h2>
+      
+      <div class="form-group">
+        <label for="filterCategory">Category <span class="required">*</span></label>
+        <select id="filterCategory">
+          <option value="">Choose category...</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="filterBrand">Brand <span class="required">*</span></label>
+        <select id="filterBrand" disabled>
+          <option value="">Choose brand...</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="filterSize">Size <span class="required">*</span></label>
+        <select id="filterSize" disabled>
+          <option value="">Choose size...</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="filterColor">Color <span class="required">*</span></label>
+        <select id="filterColor" disabled>
+          <option value="">Choose color...</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- Item Selection - Auto-selected -->
+    <div class="form-group">
+      <label for="itemId">Selected Item</label>
+      <input type="text" id="itemId" readonly placeholder="Select category, brand, size, and color above">
+      <div class="helper-text">Auto-selected based on your filters</div>
+      <div class="item-preview" id="itemPreview"></div>
+    </div>
+    
+    <!-- Quantity and Add to Cart -->
+    <div class="quantity-add-section">
+      <div class="form-group">
+        <label for="quantity">Quantity <span class="required">*</span></label>
+        <input type="number" id="quantity" min="1" value="1" required>
+      </div>
+      <button type="button" class="btn-add" id="addToCartBtn" onclick="addToCart()" disabled>
+        ➕ Add to Cart
+      </button>
+    </div>
+  </div>
+
+  <!-- Cart -->
+  <div class="cart-container" id="cartContainer">
+    <div class="cart-header">
+      <h2>🛒 Cart</h2>
+      <span class="cart-count" id="cartCount">0 items</span>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-summary" id="cartSummary"></div>
+  </div>
+
+  <!-- Sale Details (only shown when cart has items) -->
+  <div class="container" id="saleDetailsContainer" style="display: none;">
+    <h2 style="margin-top: 0;">📝 Sale Details</h2>
+    
+    <form id="salesForm">
+      <div class="form-group">
+        <label for="salePrice">
+          Total Sale Price <span class="required">*</span>
+        </label>
+        <input type="number" id="salePrice" step="0.01" min="0" required placeholder="0.00">
+        <div class="helper-text">Total price for all items in cart</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="dateSold">
+          Date Sold <span class="required">*</span>
+        </label>
+        <input type="date" id="dateSold" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="soldBy">
+          Sold By <span class="required">*</span>
+        </label>
+        <select id="soldBy" required>
+          <option value="">Choose...</option>
+          <option value="Zach">Zach</option>
+          <option value="Adi">Adi</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="buyer">Buyer <span class="required">*</span></label>
+        <input type="text" id="buyer" placeholder="Buyer name or username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="platform">
+          Platform <span class="required">*</span>
+        </label>
+        <select id="platform" required>
+          <option value="">Choose...</option>
+          <option value="Depop">Depop</option>
+          <option value="eBay">eBay</option>
+          <option value="local">Local</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="shippingStatus">
+          Shipping Status <span class="required">*</span>
+        </label>
+        <select id="shippingStatus" required>
+          <option value="">Choose...</option>
+          <option value="needs to ship">Needs to Ship</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="local pickup (no shipping)">Local Pickup (No Shipping)</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="trackingNumber">Tracking Number</label>
+        <input type="text" id="trackingNumber" placeholder="Optional">
+      </div>
+      
+      <div class="form-group">
+        <label for="notes">Notes</label>
+        <textarea id="notes" rows="3" placeholder="Any additional notes about this sale..."></textarea>
+      </div>
+      
+      <div class="btn-container">
+        <button type="button" class="btn-secondary" onclick="clearCart()">Clear Cart</button>
+        <button type="submit" class="btn-primary" id="submitBtn">Record Sale (All Items)</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let allItems = [];
+    let cart = [];
+    let selectedItem = null;
+    
+    // DEBUG AND FORCE FULL WIDTH - Strip Google's scaling
+    (function forceFullWidth() {
+      const html = document.documentElement;
+      const body = document.body;
+      
+      // DEBUG: Log what Google is doing
+      console.log('=== DEBUGGING GOOGLE SCALING ===');
+      console.log('html computed styles:', window.getComputedStyle(html));
+      console.log('body computed styles:', window.getComputedStyle(body));
+      console.log('body fontSize:', window.getComputedStyle(body).fontSize);
+      console.log('viewport width:', window.innerWidth);
+      console.log('document width:', document.documentElement.clientWidth);
+      
+      // Remove any inline styles Google adds
+      html.removeAttribute('style');
+      body.removeAttribute('style');
+      
+      // Force full width and NO SCALING with inline styles (highest priority)
+      html.style.cssText = 'width: 100vw !important; max-width: 100vw !important; margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; zoom: 1 !important; -webkit-transform: scale(1) !important; transform: scale(1) !important; font-size: 100% !important;';
+      body.style.cssText = 'width: 100vw !important; max-width: 100vw !important; margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; background: white !important; zoom: 1 !important; -webkit-transform: scale(1) !important; transform: scale(1) !important; font-size: 32px !important;';
+      
+      // Check all parent containers
+      let parent = body.parentElement;
+      let level = 0;
+      while (parent) {
+        console.log('Parent level ' + level + ':', parent.tagName, window.getComputedStyle(parent));
+        if (parent.style) {
+          parent.style.zoom = '1';
+          parent.style.transform = 'scale(1)';
+          parent.style.webkitTransform = 'scale(1)';
+        }
+        parent = parent.parentElement;
+        level++;
+      }
+      
+      // Force container and cart-container to not be scaled
+      const containers = document.querySelectorAll('.container, .cart-container');
+      containers.forEach(function(container) {
+        if (container) {
+          container.style.zoom = '1';
+          container.style.transform = 'scale(1)';
+          container.style.webkitTransform = 'scale(1)';
+          container.style.fontSize = '32px';
+        }
+      });
+      
+      // Log after our changes
+      setTimeout(function() {
+        console.log('=== AFTER OUR CHANGES ===');
+        console.log('body fontSize:', window.getComputedStyle(body).fontSize);
+        const testContainer = document.querySelector('.container');
+        if (testContainer) {
+          console.log('container fontSize:', window.getComputedStyle(testContainer).fontSize);
+          console.log('container transform:', window.getComputedStyle(testContainer).transform);
+          console.log('container zoom:', window.getComputedStyle(testContainer).zoom);
+        }
+      }, 100);
+      
+      // Re-apply periodically in case Google re-injects
+      setInterval(function() {
+        if (html.style.zoom !== '1') {
+          html.style.cssText = 'width: 100vw !important; max-width: 100vw !important; margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; zoom: 1 !important; -webkit-transform: scale(1) !important; transform: scale(1) !important; font-size: 32px !important;';
+        }
+        if (body.style.zoom !== '1') {
+          body.style.cssText = 'width: 100vw !important; max-width: 100vw !important; margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; background: white !important; zoom: 1 !important; -webkit-transform: scale(1) !important; transform: scale(1) !important; font-size: 32px !important;';
+        }
+        
+        // Also check containers
+        const containers = document.querySelectorAll('.container, .cart-container');
+        containers.forEach(function(container) {
+          if (container && container.style.zoom !== '1') {
+            container.style.zoom = '1';
+            container.style.transform = 'scale(1)';
+            container.style.webkitTransform = 'scale(1)';
+          }
+        });
+      }, 100);
+    })();
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      loadInventoryData();
+      setupEventListeners();
+      setDefaultDate();
+    });
+    
+    function setDefaultDate() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('dateSold').value = today;
+    }
+    
+    function setupEventListeners() {
+      document.getElementById('filterCategory').addEventListener('change', onCategoryChange);
+      document.getElementById('filterBrand').addEventListener('change', onBrandChange);
+      document.getElementById('filterSize').addEventListener('change', onSizeChange);
+      document.getElementById('filterColor').addEventListener('change', onColorChange);
+      document.getElementById('salesForm').addEventListener('submit', handleSubmit);
+    }
+    
+    function loadInventoryData() {
+      google.script.run
+        .withSuccessHandler(onInventoryLoaded)
+        .withFailureHandler(onError)
+        .getInStockItems();
+    }
+    
+    function onInventoryLoaded(items) {
+      if (!items || items.length === 0) {
+        showError('No items in stock. Please add inventory first.');
+        allItems = [];
+        return;
+      }
+      
+      allItems = items;
+      populateCategories();
+    }
+    
+    function populateCategories() {
+      const categories = [...new Set(allItems.map(item => item.category))].sort();
+      const select = document.getElementById('filterCategory');
+      select.innerHTML = '<option value="">Choose category...</option>';
+      categories.forEach(cat => {
+        const count = allItems.filter(item => item.category === cat).length;
+        select.innerHTML += `<option value="${cat}">${cat} (${count})</option>`;
+      });
+      
+      // Auto-select if only one option
+      if (categories.length === 1) {
+        select.value = categories[0];
+        showAutoSelectMessage('filterCategory', 'Category');
+        onCategoryChange();
+      } else {
+        hideAutoSelectMessage('filterCategory');
+      }
+    }
+    
+    function onCategoryChange() {
+      const category = document.getElementById('filterCategory').value;
+      document.getElementById('filterBrand').disabled = !category;
+      document.getElementById('filterSize').disabled = true;
+      document.getElementById('filterColor').disabled = true;
+      
+      document.getElementById('filterBrand').value = '';
+      document.getElementById('filterSize').value = '';
+      document.getElementById('filterColor').value = '';
+      
+      // Clear downstream auto-select messages
+      hideAutoSelectMessage('filterBrand');
+      hideAutoSelectMessage('filterSize');
+      hideAutoSelectMessage('filterColor');
+      
+      if (category) {
+        const filteredItems = allItems.filter(item => item.category === category);
+        populateBrands(filteredItems);
+      }
+      
+      autoSelectItem();
+    }
+    
+    function populateBrands(items) {
+      const brands = [...new Set(items.map(item => item.brand))].sort();
+      const select = document.getElementById('filterBrand');
+      select.innerHTML = '<option value="">Choose brand...</option>';
+      brands.forEach(brand => {
+        const count = items.filter(item => item.brand === brand).length;
+        select.innerHTML += `<option value="${brand}">${brand} (${count})</option>`;
+      });
+      
+      // Auto-select if only one option
+      if (brands.length === 1) {
+        select.value = brands[0];
+        showAutoSelectMessage('filterBrand', 'Brand');
+        onBrandChange();
+      } else {
+        hideAutoSelectMessage('filterBrand');
+      }
+    }
+    
+    function onBrandChange() {
+      const brand = document.getElementById('filterBrand').value;
+      const category = document.getElementById('filterCategory').value;
+      
+      document.getElementById('filterSize').disabled = !brand;
+      document.getElementById('filterColor').disabled = true;
+      document.getElementById('filterSize').value = '';
+      document.getElementById('filterColor').value = '';
+      
+      // Clear downstream auto-select messages
+      hideAutoSelectMessage('filterSize');
+      hideAutoSelectMessage('filterColor');
+      
+      if (brand) {
+        const filteredItems = allItems.filter(item => 
+          item.category === category && item.brand === brand
+        );
+        populateSizes(filteredItems);
+      }
+      
+      autoSelectItem();
+    }
+    
+    function populateSizes(items) {
+      const sizes = [...new Set(items.map(item => item.size))].sort();
+      const select = document.getElementById('filterSize');
+      select.innerHTML = '<option value="">Choose size...</option>';
+      sizes.forEach(size => {
+        const count = items.filter(item => item.size === size).length;
+        select.innerHTML += `<option value="${size}">${size} (${count})</option>`;
+      });
+      
+      // Auto-select if only one option
+      if (sizes.length === 1) {
+        select.value = sizes[0];
+        showAutoSelectMessage('filterSize', 'Size');
+        onSizeChange();
+      } else {
+        hideAutoSelectMessage('filterSize');
+      }
+    }
+    
+    function onSizeChange() {
+      const size = document.getElementById('filterSize').value;
+      const category = document.getElementById('filterCategory').value;
+      const brand = document.getElementById('filterBrand').value;
+      
+      document.getElementById('filterColor').disabled = !size;
+      document.getElementById('filterColor').value = '';
+      
+      // Clear downstream auto-select messages
+      hideAutoSelectMessage('filterColor');
+      
+      if (size) {
+        const filteredItems = allItems.filter(item => 
+          item.category === category && item.brand === brand && item.size === size
+        );
+        populateColors(filteredItems);
+      }
+      
+      autoSelectItem();
+    }
+    
+    function populateColors(items) {
+      const colors = [...new Set(items.map(item => item.color))].sort();
+      const select = document.getElementById('filterColor');
+      select.innerHTML = '<option value="">Choose color...</option>';
+      colors.forEach(color => {
+        const count = items.filter(item => item.color === color).length;
+        select.innerHTML += `<option value="${color}">${color} (${count})</option>`;
+      });
+      
+      // Auto-select if only one option
+      if (colors.length === 1) {
+        select.value = colors[0];
+        showAutoSelectMessage('filterColor', 'Color');
+        onColorChange();
+      } else {
+        hideAutoSelectMessage('filterColor');
+      }
+    }
+    
+    function onColorChange() {
+      autoSelectItem();
+    }
+    
+    function showAutoSelectMessage(selectId, fieldName) {
+      const select = document.getElementById(selectId);
+      const parent = select.parentElement;
+      
+      // Remove any existing message
+      const existing = parent.querySelector('.auto-select-msg');
+      if (existing) {
+        existing.remove();
+      }
+      
+      // Add new message
+      const msg = document.createElement('div');
+      msg.className = 'auto-select-msg';
+      msg.style.cssText = 'background: #e8f5e9; color: #2e7d32; padding: 8px 12px; border-radius: 4px; font-size: 14px; margin-bottom: 8px; border-left: 3px solid #4caf50; font-weight: 500;';
+      msg.innerHTML = `✓ ${fieldName} auto-selected (only option available)`;
+      parent.insertBefore(msg, select);
+    }
+    
+    function hideAutoSelectMessage(selectId) {
+      const select = document.getElementById(selectId);
+      const parent = select.parentElement;
+      const existing = parent.querySelector('.auto-select-msg');
+      if (existing) {
+        existing.remove();
+      }
+    }
+    
+    function autoSelectItem() {
+      const itemIdInput = document.getElementById('itemId');
+      const preview = document.getElementById('itemPreview');
+      const addBtn = document.getElementById('addToCartBtn');
+      
+      const category = document.getElementById('filterCategory').value;
+      const brand = document.getElementById('filterBrand').value;
+      const size = document.getElementById('filterSize').value;
+      const color = document.getElementById('filterColor').value;
+      
+      if (!category || !brand || !size || !color) {
+        itemIdInput.value = '';
+        preview.classList.remove('show');
+        addBtn.disabled = true;
+        selectedItem = null;
+        return;
+      }
+      
+      const matches = allItems.filter(item =>
+        item.category === category &&
+        item.brand === brand &&
+        item.size === size &&
+        item.color === color
+      );
+      
+      if (matches.length === 0) {
+        itemIdInput.value = 'No matching items in inventory';
+        itemIdInput.style.color = '#d93025';
+        preview.innerHTML = '<span style="color: #d93025;">⚠️ No items match these filters.</span>';
+        preview.classList.add('show');
+        addBtn.disabled = true;
+        selectedItem = null;
+        return;
+      }
+      
+      selectedItem = {
+        category: category,
+        brand: brand,
+        size: size,
+        color: color,
+        matches: matches
+      };
+      
+      itemIdInput.value = `${category} ${brand} ${size} ${color} (${matches.length} available)`;
+      itemIdInput.style.color = '#202124';
+      
+      preview.innerHTML = `
+        <strong>${matches.length} items available</strong><br>
+        <strong>Cost each:</strong> $${matches[0].cost}
+      `;
+      preview.classList.add('show');
+      addBtn.disabled = false;
+    }
+    
+    function addToCart() {
+      if (!selectedItem) return;
+      
+      const quantity = parseInt(document.getElementById('quantity').value);
+      
+      if (quantity > selectedItem.matches.length) {
+        showError(`Only ${selectedItem.matches.length} items available in stock!`);
+        return;
+      }
+      
+      // Get the specific items from inventory
+      const itemsToAdd = selectedItem.matches.slice(0, quantity);
+      
+      cart.push({
+        category: selectedItem.category,
+        brand: selectedItem.brand,
+        size: selectedItem.size,
+        color: selectedItem.color,
+        quantity: quantity,
+        items: itemsToAdd
+      });
+      
+      // Remove sold items from allItems
+      itemsToAdd.forEach(soldItem => {
+        const index = allItems.findIndex(item => item.itemId === soldItem.itemId);
+        if (index > -1) {
+          allItems.splice(index, 1);
+        }
+      });
+      
+      updateCartDisplay();
+      resetItemSelection();
+      showSuccess(`Added ${quantity} item(s) to cart!`);
+      
+      setTimeout(() => {
+        document.getElementById('successMessage').classList.remove('show');
+      }, 2000);
+    }
+    
+    function resetItemSelection() {
+      document.getElementById('filterCategory').value = '';
+      document.getElementById('filterBrand').value = '';
+      document.getElementById('filterSize').value = '';
+      document.getElementById('filterColor').value = '';
+      document.getElementById('quantity').value = 1;
+      document.getElementById('itemId').value = '';
+      document.getElementById('itemPreview').classList.remove('show');
+      document.getElementById('addToCartBtn').disabled = true;
+      
+      document.getElementById('filterBrand').disabled = true;
+      document.getElementById('filterSize').disabled = true;
+      document.getElementById('filterColor').disabled = true;
+      
+      // Clear auto-select messages
+      hideAutoSelectMessage('filterCategory');
+      hideAutoSelectMessage('filterBrand');
+      hideAutoSelectMessage('filterSize');
+      hideAutoSelectMessage('filterColor');
+      
+      selectedItem = null;
+      populateCategories();
+    }
+    
+    function updateCartDisplay() {
+      const cartContainer = document.getElementById('cartContainer');
+      const cartItems = document.getElementById('cartItems');
+      const cartCount = document.getElementById('cartCount');
+      const cartSummary = document.getElementById('cartSummary');
+      const saleDetailsContainer = document.getElementById('saleDetailsContainer');
+      
+      if (cart.length === 0) {
+        cartContainer.classList.remove('show');
+        saleDetailsContainer.style.display = 'none';
+        return;
+      }
+      
+      cartContainer.classList.add('show');
+      saleDetailsContainer.style.display = 'block';
+      
+      const totalItems = cart.reduce((sum, entry) => sum + entry.quantity, 0);
+      cartCount.textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+      
+      cartItems.innerHTML = cart.map((entry, index) => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-title">
+              ${entry.category} ${entry.brand}
+            </div>
+            <div class="cart-item-details">
+              Size: ${entry.size} | Color: ${entry.color}
+            </div>
+          </div>
+          <span class="cart-item-qty">×${entry.quantity}</span>
+          <button class="cart-item-remove" onclick="removeFromCart(${index})">Remove</button>
+        </div>
+      `).join('');
+      
+      const totalCost = cart.reduce((sum, entry) => {
+        return sum + entry.items.reduce((itemSum, item) => itemSum + parseFloat(item.cost), 0);
+      }, 0);
+      
+      cartSummary.innerHTML = `
+        Total Items: ${totalItems} | 
+        Total Cost: $${totalCost.toFixed(2)}
+      `;
+    }
+    
+    function removeFromCart(index) {
+      const entry = cart[index];
+      
+      // Add items back to allItems
+      entry.items.forEach(item => {
+        allItems.push(item);
+      });
+      
+      cart.splice(index, 1);
+      updateCartDisplay();
+      populateCategories();
+    }
+    
+    function clearCart() {
+      if (cart.length === 0) return;
+      
+      if (!confirm('Clear all items from cart?')) return;
+      
+      // Add all items back to inventory
+      cart.forEach(entry => {
+        entry.items.forEach(item => {
+          allItems.push(item);
+        });
+      });
+      
+      cart = [];
+      updateCartDisplay();
+      populateCategories();
+      document.getElementById('salesForm').reset();
+      setDefaultDate();
+    }
+    
+    function handleSubmit(e) {
+      e.preventDefault();
+      
+      if (cart.length === 0) {
+        showError('Cart is empty!');
+        return;
+      }
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Saving...';
+      
+      const saleData = {
+        salePrice: parseFloat(document.getElementById('salePrice').value),
+        dateSold: document.getElementById('dateSold').value,
+        soldBy: document.getElementById('soldBy').value,
+        buyer: document.getElementById('buyer').value,
+        platform: document.getElementById('platform').value,
+        shippingStatus: document.getElementById('shippingStatus').value,
+        trackingNumber: document.getElementById('trackingNumber').value,
+        notes: document.getElementById('notes').value,
+        items: []
+      };
+      
+      // Flatten cart into individual items
+      cart.forEach(entry => {
+        entry.items.forEach(item => {
+          saleData.items.push(item.itemId);
+        });
+      });
+      
+      google.script.run
+        .withSuccessHandler(onSaleRecorded)
+        .withFailureHandler(onSaleError)
+        .recordBulkSale(saleData);
+    }
+    
+    function onSaleRecorded(result) {
+      showSuccess(`✅ Sale recorded successfully! ${result.itemCount} items sold.`);
+      cart = [];
+      updateCartDisplay();
+      document.getElementById('salesForm').reset();
+      setDefaultDate();
+      loadInventoryData();
+      
+      setTimeout(() => {
+        document.getElementById('successMessage').classList.remove('show');
+      }, 5000);
+    }
+    
+    function onSaleError(error) {
+      showError(error.message || 'An error occurred. Please try again.');
+      document.getElementById('submitBtn').disabled = false;
+      document.getElementById('submitBtn').textContent = 'Record Sale (All Items)';
+    }
+    
+    function showSuccess(message) {
+      const el = document.getElementById('successMessage');
+      el.textContent = message;
+      el.classList.add('show');
+      document.getElementById('errorMessage').classList.remove('show');
+    }
+    
+    function showError(message) {
+      const el = document.getElementById('errorMessage');
+      el.textContent = '❌ ' + message;
+      el.classList.add('show');
+      document.getElementById('successMessage').classList.remove('show');
+    }
+    
+    function onError(error) {
+      showError(error.message || 'An error occurred loading inventory.');
+    }
+  </script>
+</body>
+</html>
+
